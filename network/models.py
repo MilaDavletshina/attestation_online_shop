@@ -34,7 +34,7 @@ class NetworkLink(models.Model):
     contact = models.OneToOneField(Contact, on_delete=models.CASCADE, verbose_name="Контакт", help_text="Укажите контакт")
     products = models.ManyToManyField(Product, verbose_name="Продукт", help_text="Укажите продукт")
     supplier = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Поставщик", help_text="Укажите поставщика")
-    dept = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name="Задолженность перед поставщиком", help_text="Укажите задолженность перед поставщиком")
+    debt = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name="Задолженность перед поставщиком", help_text="Укажите задолженность перед поставщиком")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
 
     class Meta:
