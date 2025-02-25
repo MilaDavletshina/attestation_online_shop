@@ -11,17 +11,19 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 class NetworkLinkAdmin(admin.ModelAdmin):
-    list_display = ('name', 'contact', 'get_supplier', 'debt', 'created_at')
+    list_display = ('name', 'contact', 'supplier', 'debt', 'created_at')
     list_filter = ('contact__city',)
     actions = ['clear_debt']
 
-    def get_supplier(self, obj):
+    def supplier(self, obj):
+        """admin: ссылка на «Поставщика» под названием модели в карточке."""
         return obj.supplier.name if obj.supplier else 'No Supplier'
-    get_supplier.short_description = 'Supplier'
+    supplier.short_description = 'Supplier'
 
     def clear_debt(self, request, queryset):
+        """admin action: Очистка задолженности у выбранных объектов."""
         queryset.update(debt=0)
-    clear_debt.short_description = "Clear debt for selected nodes"
+    clear_debt.short_description = "Очистить задолженность"
 
 
 admin.site.register(Contact, ContactAdmin)
