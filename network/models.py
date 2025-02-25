@@ -34,6 +34,7 @@ class Product(models.Model):
 class NetworkLink(models.Model):
     """Модель торговая сеть."""
 
+    # Уровни иерархической структуры сети
     ORGANIZATION_TYPES = (
         (0, 'Завод'),
         (1, 'Розничная сеть'),
@@ -43,7 +44,7 @@ class NetworkLink(models.Model):
     name = models.IntegerField(choices=ORGANIZATION_TYPES, verbose_name='Тип организации')
     contact = models.OneToOneField(Contact, on_delete=models.CASCADE, verbose_name="Контакт", help_text="Укажите контакт")
     products = models.ManyToManyField(Product, verbose_name="Продукт", help_text="Укажите продукт")
-    supplier = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Поставщик", help_text="Укажите поставщика") # используем 'self' в ForeignKey для создания иерархической структуры
+    supplier = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Поставщик", help_text="Укажите поставщика") # Используем 'self' в ForeignKey для создания иерархической структуры
     debt = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name="Задолженность перед поставщиком", help_text="Укажите задолженность перед поставщиком")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
 
@@ -53,11 +54,3 @@ class NetworkLink(models.Model):
 
     def __str__(self):
         return f"{self.name}"
-
-    def get_level(self):
-        level = 0
-        supplier = self.supplier
-        while supplier:
-            level += 1
-            supplier = supplier.supplier
-        return level

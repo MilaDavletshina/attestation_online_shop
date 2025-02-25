@@ -4,10 +4,14 @@ from .models import Contact, Product, NetworkLink
 
 class ContactAdmin(admin.ModelAdmin):
     list_display = ('email', 'country', 'city', 'street', 'house_number')
+    list_filter = ('email', 'country', 'city', 'street', 'house_number',)
+    search_fields = ('email', 'country', 'city', 'street', 'house_number',)
 
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'model', 'release_date')
+    list_filter = ('name', 'model',)
+    search_fields = ('name', 'model',)
 
 
 class NetworkLinkAdmin(admin.ModelAdmin):
@@ -26,6 +30,7 @@ class NetworkLinkAdmin(admin.ModelAdmin):
     clear_debt.short_description = "Очистить задолженность"
 
 
+# Связывает модель с классом администрирования.
 admin.site.register(Contact, ContactAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(NetworkLink, NetworkLinkAdmin)
