@@ -2,6 +2,7 @@ from django.db import models
 
 
 class Contact(models.Model):
+    """Модель контакты."""
     email = models.EmailField(unique=True, verbose_name="Электронная почта", help_text="Укажите электронную почту")
     country = models.CharField(max_length=100, verbose_name="Страна", help_text="Укажите страну")
     city = models.CharField(max_length=100, verbose_name="Город", help_text="Укажите город")
@@ -17,6 +18,7 @@ class Contact(models.Model):
 
 
 class Product(models.Model):
+    """Модель продукт."""
     name = models.CharField(max_length=100, verbose_name="Название", help_text="Укажите название")
     model = models.CharField(max_length=100, verbose_name="Модель", help_text="Укажите модель")
     release_date = models.DateField(verbose_name="Дата выхода продукта на рынок", help_text="Укажите дату выхода продукта на рынок")
@@ -30,16 +32,24 @@ class Product(models.Model):
 
 
 class NetworkLink(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Название", help_text="Укажите название")
+    """Модель торговая сеть."""
+
+    ORGANIZATION_TYPES = (
+        (0, 'Завод'),
+        (1, 'Розничная сеть'),
+        (2, 'ИП'),
+    )
+
+    name = models.IntegerField(choices=ORGANIZATION_TYPES, verbose_name='Тип организации')
     contact = models.OneToOneField(Contact, on_delete=models.CASCADE, verbose_name="Контакт", help_text="Укажите контакт")
     products = models.ManyToManyField(Product, verbose_name="Продукт", help_text="Укажите продукт")
-    supplier = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Поставщик", help_text="Укажите поставщика")
+    supplier = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Поставщик", help_text="Укажите поставщика") # используем 'self' в ForeignKey для создания иерархической структуры
     debt = models.DecimalField(max_digits=10, decimal_places=2, default=0, verbose_name="Задолженность перед поставщиком", help_text="Укажите задолженность перед поставщиком")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
 
     class Meta:
-        verbose_name = "Звено сети"
-        verbose_name_plural = "Звенья сети"
+        verbose_name = "Торговая сеть"
+        verbose_name_plural = "Торговые сети"
 
     def __str__(self):
         return f"{self.name}"
