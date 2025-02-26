@@ -8,52 +8,174 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Contact',
+            name="Contact",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('email', models.EmailField(help_text='Укажите электронную почту', max_length=254, unique=True, verbose_name='Электронная почта')),
-                ('country', models.CharField(help_text='Укажите страну', max_length=100, verbose_name='Страна')),
-                ('city', models.CharField(help_text='Укажите город', max_length=100, verbose_name='Город')),
-                ('street', models.CharField(help_text='Укажите название улицы', max_length=100, verbose_name='Улица')),
-                ('house_number', models.CharField(help_text='Укажите номер дома', max_length=100, verbose_name='Дом')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "email",
+                    models.EmailField(
+                        help_text="Укажите электронную почту",
+                        max_length=254,
+                        unique=True,
+                        verbose_name="Электронная почта",
+                    ),
+                ),
+                (
+                    "country",
+                    models.CharField(
+                        help_text="Укажите страну",
+                        max_length=100,
+                        verbose_name="Страна",
+                    ),
+                ),
+                (
+                    "city",
+                    models.CharField(
+                        help_text="Укажите город", max_length=100, verbose_name="Город"
+                    ),
+                ),
+                (
+                    "street",
+                    models.CharField(
+                        help_text="Укажите название улицы",
+                        max_length=100,
+                        verbose_name="Улица",
+                    ),
+                ),
+                (
+                    "house_number",
+                    models.CharField(
+                        help_text="Укажите номер дома",
+                        max_length=100,
+                        verbose_name="Дом",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Контакт',
-                'verbose_name_plural': 'Контакты',
+                "verbose_name": "Контакт",
+                "verbose_name_plural": "Контакты",
             },
         ),
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text='Укажите название', max_length=100, verbose_name='Название')),
-                ('model', models.CharField(help_text='Укажите модель', max_length=100, verbose_name='Модель')),
-                ('release_date', models.DateField(help_text='Укажите дату выхода продукта на рынок', verbose_name='Дата выхода продукта на рынок')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text="Укажите название",
+                        max_length=100,
+                        verbose_name="Название",
+                    ),
+                ),
+                (
+                    "model",
+                    models.CharField(
+                        help_text="Укажите модель",
+                        max_length=100,
+                        verbose_name="Модель",
+                    ),
+                ),
+                (
+                    "release_date",
+                    models.DateField(
+                        help_text="Укажите дату выхода продукта на рынок",
+                        verbose_name="Дата выхода продукта на рынок",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Продукт',
-                'verbose_name_plural': 'Продукты',
+                "verbose_name": "Продукт",
+                "verbose_name_plural": "Продукты",
             },
         ),
         migrations.CreateModel(
-            name='NetworkLink',
+            name="NetworkLink",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.IntegerField(choices=[(0, 'Завод'), (1, 'Розничная сеть'), (2, 'ИП')], verbose_name='Тип организации')),
-                ('debt', models.DecimalField(decimal_places=2, default=0, help_text='Укажите задолженность перед поставщиком', max_digits=10, verbose_name='Задолженность перед поставщиком')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Время создания')),
-                ('contact', models.OneToOneField(help_text='Укажите контакт', on_delete=django.db.models.deletion.CASCADE, to='network.contact', verbose_name='Контакт')),
-                ('supplier', models.ForeignKey(blank=True, help_text='Укажите поставщика', null=True, on_delete=django.db.models.deletion.SET_NULL, to='network.networklink', verbose_name='Поставщик')),
-                ('products', models.ManyToManyField(help_text='Укажите продукт', to='network.product', verbose_name='Продукт')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.IntegerField(
+                        choices=[(0, "Завод"), (1, "Розничная сеть"), (2, "ИП")],
+                        verbose_name="Тип организации",
+                    ),
+                ),
+                (
+                    "debt",
+                    models.DecimalField(
+                        decimal_places=2,
+                        default=0,
+                        help_text="Укажите задолженность перед поставщиком",
+                        max_digits=10,
+                        verbose_name="Задолженность перед поставщиком",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Время создания"
+                    ),
+                ),
+                (
+                    "contact",
+                    models.OneToOneField(
+                        help_text="Укажите контакт",
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="network.contact",
+                        verbose_name="Контакт",
+                    ),
+                ),
+                (
+                    "supplier",
+                    models.ForeignKey(
+                        blank=True,
+                        help_text="Укажите поставщика",
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="network.networklink",
+                        verbose_name="Поставщик",
+                    ),
+                ),
+                (
+                    "products",
+                    models.ManyToManyField(
+                        help_text="Укажите продукт",
+                        to="network.product",
+                        verbose_name="Продукт",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Торговая сеть',
-                'verbose_name_plural': 'Торговые сети',
+                "verbose_name": "Торговая сеть",
+                "verbose_name_plural": "Торговые сети",
             },
         ),
     ]
